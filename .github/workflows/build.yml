@@ -1,0 +1,55 @@
+# ROCKET VISUALS - automatic build for Minecraft 26.3 (Fabric).
+# Runs on every push / pull request and can be started manually (Actions -> build -> Run workflow).
+# The finished mod JAR appears under "Artifacts" on the workflow run page.
+name: build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Minecraft 26.x requires Java 25.
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'microsoft'
+
+      # Installs the exact Gradle version from gradle-wrapper.properties (9.5.1),
+      # so the build does not depend on a gradle-wrapper.jar being committed.
+      - name: Set up Gradle 9.5.1
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.5.1'
+
+      - name: Build
+        run: gradle build --no-daemon --stacktrace
+
+      - name: Show built files
+        run: ls -la build/libs
+
+      # The remapped/final mod jar only (the *-sources.jar is excluded).
+      - name: Upload mod JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: rocketvisuals-jar
+          path: |
+            build/libs/rocketvisuals-*.jar
+            !build/libs/*-sources.jar
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload sources JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: rocketvisuals-sources
+          path: build/libs/*-sources.jar
+          if-no-files-found: ignore
+          retention-days: 30

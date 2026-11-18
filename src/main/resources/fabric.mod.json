@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "rocketvisuals",
+  "version": "${version}",
+  "name": "ROCKET VISUALS",
+  "description": "Client-side visual and audio polish: particles, tool swing trails, enchant glow, mob effects, rain & thunder, fire, health bars, inventory theme, XP and crit effects, atmosphere. Vanilla balance untouched.",
+  "authors": ["ROCKET VISUALS"],
+  "license": "MIT",
+  "icon": "assets/rocketvisuals/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.rocketvisuals.RocketVisualsClient"]
+  },
+  "mixins": ["rocketvisuals.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": ">=26.3 <26.4",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
