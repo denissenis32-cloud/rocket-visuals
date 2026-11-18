@@ -35,7 +35,7 @@ public final class HudRenderer {
 
     public static void extract(GuiGraphicsExtractor g, DeltaTracker dt) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.level == null || mc.options.hideGui) return;
+        if (mc.player == null || mc.level == null || mc.getDebugOverlay().showDebugScreen()) return;
         RocketConfig c = RocketConfig.get();
         int w = mc.getWindow().getGuiScaledWidth();
         int h = mc.getWindow().getGuiScaledHeight();

@@ -29,7 +29,7 @@ public final class RocketVisualsClient implements ClientModInitializer {
         KeyMapping.Category category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MOD_ID, "main"));
         openMenuKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.rocketvisuals.open_menu",
-                InputConstants.Type.KEYSYM,
+                InputConstants.Type.KEYBOARD,
                 InputConstants.KEY_RSHIFT,
                 category));
 
